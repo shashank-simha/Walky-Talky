@@ -8,38 +8,31 @@
     android:orientation="vertical"
     tools:context="com.example.simha.walkytalky.MainActivity">
 
-    <ListView
-        android:id="@+id/clues"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5">
-
-    </ListView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Score"/>
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            android:paddingVertical="8dp">
+                <EditText
+            android:id="@+id/team"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+            android:hint="Enter your team(Film/Series) name here" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonScan"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="1"
-        android:text="Scan QR Code"
-        android:background="@color/colorSecondaryDark"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingVertical="8dp">
+        <Button
+            android:id="@+id/teamBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/colorSecondaryDark"
+            android:text="Proceed"
+            android:textColor="#ffffff" />
+        </LinearLayout>
 </LinearLayout>

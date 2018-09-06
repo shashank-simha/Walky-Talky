@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "141857141098",
+    "firebase_url": "https://walky-48d9a.firebaseio.com",
+    "project_id": "walky-48d9a",
+    "storage_bucket": "walky-48d9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141857141098:android:fc60cc2111e4e3fd",
+        "android_client_info": {
+          "package_name": "com.example.simha.walkytalky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141857141098-1u19gso5e95u4mkdb4b34ch0g453ng9n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.simha.walkytalky",
+            "certificate_hash": "55660a2f95f9adef65c084e201552475daa18cda"
+          }
+        },
+        {
+          "client_id": "141857141098-8f7nmut435flb9c58t6v4dp85v7jdu4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIRuHZ7VWg3fbvBzndBGmFhK4wqeFGpOQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141857141098-8f7nmut435flb9c58t6v4dp85v7jdu4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
