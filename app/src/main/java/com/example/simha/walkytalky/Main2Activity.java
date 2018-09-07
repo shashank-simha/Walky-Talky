@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +52,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Data/" + team);
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Object team = snapshot.getValue();
@@ -65,11 +66,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     start = jsonObject.getString("start");
                     score = jsonObject.getString("score");
 
-                    String temp = "Places/path" + path + "/" + start;
+                    DatabaseReference refPlace = database.getReference("Places/path" + path + "/" + start);
 
-                    DatabaseReference refPlace = database.getReference(temp);
-
-                    refPlace.addValueEventListener(new ValueEventListener() {
+                    refPlace.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             Object place = snapshot.getValue();
@@ -82,6 +81,36 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                             System.out.println("The read failed: " + databaseError.getCode());
                         }
                     });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        DatabaseReference refScore = database.getReference("Data/" + team);
+
+        refScore.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Object team = snapshot.getValue();
+                Gson gson = new Gson();
+                String json = gson.toJson(team);
+                JSONObject jsonObject = null;
+
+                try {
+                    jsonObject = new JSONObject(json);
+                    score = jsonObject.getString("score");
+                    if (score.equals(null)) {
+                        Toast.makeText(Main2Activity.this, String.valueOf(score), Toast.LENGTH_LONG).show();
+                    } else {
+                        TextView scoreView = (TextView) findViewById(R.id.score);
+                        scoreView.setText(score);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -123,12 +152,16 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
                 DatabaseReference refPlace = database.getReference(temp);
 
-                refPlace.addValueEventListener(new ValueEventListener() {
+                refPlace.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         Object place = snapshot.getValue();
-                        Main2Activity.this.cluesList.add(String.valueOf(place));
-                        Main2Activity.this.ClueAdapter.notifyDataSetChanged();
+                        if (place != null) {
+                            Main2Activity.this.cluesList.add(String.valueOf(place));
+                            Main2Activity.this.ClueAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(Main2Activity.this, "Invalid QR code", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
@@ -136,7 +169,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                         System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
